@@ -4,7 +4,7 @@
  */
 fun Out(){
     if(map.isEmpty()){
-        print("Data Base is empty")
+        println("Data Base is empty")
     }
     map.forEach{ (key, value) ->
         println("$key $value")
@@ -12,7 +12,8 @@ fun Out(){
 }
 
 /*
- *
+ * Функция, выводящая пары ключ-значения в зависимости
+ * от соостветствия ключа условию на его длину
  */
 
 fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
@@ -22,6 +23,10 @@ fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
         }
     }
 }
+/*
+ * Функиця, выводящая пары ключ-значения в зависимости
+ * от соответствия ключа заданному условию
+ */
 fun FilterOut(arr : List<String>){
     if(arr[1] == "length"){
         if(arr.size != 4){
