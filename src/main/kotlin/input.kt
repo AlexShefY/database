@@ -1,5 +1,8 @@
 import java.io.File
 
+/*
+ * Чтение из файла данных
+ */
 fun dataIn(){
     File("file_data.txt").useLines{
         lines -> lines.forEach{
