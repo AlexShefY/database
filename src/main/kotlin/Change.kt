@@ -5,11 +5,15 @@
 fun Change(args : List<String>){
     if(args.size != 3){
         Error(Errors.Size)
+        return
     }
-    else if(!map.containsKey(args[1])){
-        Error(Errors.NotExists)
+    WorkWithFile("file_data.txt").read()
+    for(p in map){
+        if(p.Key == args[1]){
+            p.value = args[2]
+            WorkWithFile("file_data.txt").write()
+            return
+        }
     }
-    else{
-        map[args[1]] = args[2]
-    }
+    Error(Errors.NotExists)
 }

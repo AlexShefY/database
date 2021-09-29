@@ -1,8 +1,8 @@
 
-var map : MutableMap<String, String> = mutableMapOf()
+var startnodeindex = 0
+var map : MutableList<node> = mutableListOf()
 fun main(args: Array<String>) {
     if(args[0] == "start"){
-        WorkWithFile("file_data.txt").read()
         print(">")
         var s = readLine()!!
         while(s != "finish"){
@@ -42,7 +42,6 @@ fun main(args: Array<String>) {
             print(">")
             s = readLine()!!
         }
-        WorkWithFile("file_data.txt").write()
     }
     else{
         println("Error")

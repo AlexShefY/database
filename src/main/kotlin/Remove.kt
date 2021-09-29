@@ -5,20 +5,26 @@
 fun Remove(arr : List<String>){
     if(arr.size != 2){
         Error(Errors.Size)
+        return
     }
-    else if(!map.containsKey(arr[1])){
-        Error(Errors.NotExists)
+    WorkWithFile("file_data.txt").read()
+    for(p in map.indices){
+        if(map[p].Key == arr[1]){
+            map.removeAt(p)
+            WorkWithFile("file_data.txt").write()
+            return
+        }
     }
-    else{
-        map.remove(arr[1])
-    }
+    Error(Errors.NotExists)
 }
 
 /*
  * Очищаем словарь
  */
 fun RemoveAll(){
+    WorkWithFile("file_data.txt").read()
     map.clear()
+    WorkWithFile("file_data.txt").write()
 }
 
 /*
@@ -26,14 +32,14 @@ fun RemoveAll(){
  * соотвествует ли длина заданному условию
  */
 fun removeIfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
-    var toDelete : MutableList<String> = mutableListOf()
-    map.forEach{ (key, value) ->
-        if(func(key.length, x)){
-            toDelete.add(key)
+    var toDelete : MutableList<node> = mutableListOf()
+    map.forEach{ node ->
+        if(func(node.Key.length, x)){
+            toDelete.add(node)
         }
     }
-    for(key in toDelete){
-        map.remove(key)
+    for(node in toDelete){
+        map.remove(node)
     }
 }
 /*
@@ -41,6 +47,7 @@ fun removeIfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
  * от соответствия условию
  */
 fun RemoveIf(arr : List<String>){
+    WorkWithFile("file_data.txt").read()
     if(arr[1] == "length"){
         if(arr.size != 4){
             Error(Errors.Size)
@@ -69,19 +76,21 @@ fun RemoveIf(arr : List<String>){
             }
             else -> Error(Errors.Other)
         }
+        WorkWithFile("file_data.txt").write()
     }
     else if(arr[1] == "regex"){
         var pattern = arr[2].toRegex()
-        var toDelete = mutableListOf<String>()
+        var toDelete = mutableListOf<node>()
         map.forEach{
-                (key, value) ->
-            if(pattern.matches(key)){
-                toDelete.add(key)
+                node ->
+            if(pattern.matches(node.Key)){
+                toDelete.add(node)
             }
         }
         for(key in toDelete){
             map.remove(key)
         }
+        WorkWithFile("file_data.txt").write()
     }
     else{
         Error(Errors.Other)

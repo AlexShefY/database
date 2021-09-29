@@ -5,11 +5,14 @@
 fun In(args : List<String>){
     if(args.size != 2){
         Error(Errors.Size)
+        return
     }
-    else if(map.containsKey(args[1])){
-        println("This key exists")
+    WorkWithFile("file_data.txt").read()
+    for(p in map){
+        if(p.Key == args[1]){
+            println("This key exists")
+            return
+        }
     }
-    else{
-        println("This key doesn`t exist")
-    }
+    println("This key doesn`t exist")
 }

@@ -3,11 +3,12 @@
  * Функция, выводящая содержание базы данных
  */
 fun Out(){
+    WorkWithFile("file_data.txt").read()
     if(map.isEmpty()){
         println("Data Base is empty")
     }
-    map.forEach{ (key, value) ->
-        println("$key $value")
+    map.forEach{ node ->
+        println("${node.Key} ${node.value}")
     }
 }
 
@@ -17,9 +18,9 @@ fun Out(){
  */
 
 fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
-    map.forEach{ (key, value) ->
-        if(func(key.length, x)){
-            println("$key $value")
+    map.forEach{ node ->
+        if(func(node.Key.length, x)){
+            println("${node.Key} ${node.value}")
         }
     }
 }
@@ -28,6 +29,7 @@ fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
  * от соответствия ключа заданному условию
  */
 fun FilterOut(arr : List<String>){
+    WorkWithFile("file_data.txt").read()
     if(arr[1] == "length"){
         if(arr.size != 4){
             Error(Errors.Size)
@@ -56,15 +58,17 @@ fun FilterOut(arr : List<String>){
             }
             else -> Error(Errors.Other)
         }
+        WorkWithFile("file_data.txt").write()
     }
     else if(arr[1] == "regex"){
         var pattern = arr[2].toRegex()
         map.forEach{
-            (key, value) ->
-            if(pattern.matches(key)){
-                println("$key $value")
+            node ->
+            if(pattern.matches(node.Key)){
+                println("${node.Key} ${node.value}")
             }
         }
+        WorkWithFile("file_data.txt").write()
     }
     else{
         Error(Errors.Other)
