@@ -1,56 +1,48 @@
+
 var map : MutableMap<String, String> = mutableMapOf()
 fun main(args: Array<String>) {
     if(args[0] == "start"){
+        WorkWithFile("file_data.txt").read()
         print(">")
-        dataIn()
         var s = readLine()!!
         while(s != "finish"){
             var arr = s.split(" ")
             when(arr[0]){
                 "add" -> {
-
+                    Add(arr)
                 }
                 "extract" -> {
-
+                    Extract(arr)
                 }
                 "in" -> {
-
-                }
-                "first" -> {
-
-                }
-                "next" -> {
-
-                }
-                "last" -> {
-
-                }
-                "previous" -> {
-
+                    In(arr)
                 }
                 "out" -> {
-
+                    Out()
                 }
                 "remove" -> {
-
+                    Remove(arr)
                 }
                 "removeAll" -> {
-
+                    RemoveAll()
                 }
                 "removeIf" -> {
-
+                    RemoveIf(arr)
                 }
                 "change" -> {
-
+                    Change(arr)
                 }
                 "filterOut" -> {
-
+                    FilterOut(arr)
+                }
+                else -> {
+                    Error(Errors.Other)
                 }
             }
             print(">")
             s = readLine()!!
         }
-        dataOut()
+        WorkWithFile("file_data.txt").write()
     }
     else{
         println("Error")

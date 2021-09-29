@@ -1,0 +1,2 @@
+out>input
+one>1
