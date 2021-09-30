@@ -1,19 +1,25 @@
 import java.security.MessageDigest
 
+/*
+ * Преобразуем число в строку длины 6
+ * (возмножно с лидирующими нулями)
+ */
 fun digits(a : Int) : String{
-    var res : String = ""
-    var b = a
-    for(i in 0..5){
-        res += (b % 10).toString()
-        b /= 10
-    }
-    return res.reversed()
+    return "%06d".format(a)
+}
+/*
+ * Хэшируем строку
+ */
+private fun hashString(input: String, algorithm: String): String {
+    return MessageDigest
+        .getInstance(algorithm)
+        .digest(input.toByteArray())
+        .fold("", { str, it -> str + "%02x".format(it) })
 }
 class node(var used : Boolean, var Hash : String, var Key : String,var value : String,var left : Int, var right : Int, var selfit : Int){
     fun countHash()
     {
-        val md = MessageDigest.getInstance(Key)
-        Hash = md.digest(Key.toByteArray()).toString()
+        Hash = hashString(Key, "SHA-256")
     }
     override fun toString() : String{
         var res : String = ""

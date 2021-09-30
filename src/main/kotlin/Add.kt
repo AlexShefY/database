@@ -14,6 +14,8 @@ fun Add(arr : List<String>){
             return
         }
     }
-    map.add(node(true, "0".repeat(64), arr[1], arr[2], 0, 0, startnodeindex))
+    var new = node(true, "0".repeat(64), arr[1], arr[2], 0, 0, startnodeindex)
+    new.countHash()
+    map.add(new)
     WorkWithFile("file_data.txt").write()
 }
