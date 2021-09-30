@@ -52,3 +52,10 @@ fun find(nodeindex : Int, toFind : node) : Boolean{
         return find(curNode.right, toFind)
     }
 }
+
+fun build(){
+    WorkWithFile("file_data.txt").addWrite(digits(startnodeindex, 6) + "|")
+    for(p in map){
+        Add(listOf("add", p.Key, p.value))
+    }
+}

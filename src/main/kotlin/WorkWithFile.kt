@@ -34,7 +34,8 @@ class WorkWithFile(var path : String) {
     public fun write(){
         file = RandomAccessFile(path, "rw")
         file.setLength(0)
-        globalIt = 7
+        startnodeindex = 0
+        build()
         file.writeBytes(digits(startnodeindex, 6))
         file.writeBytes("|")
         map.forEach {
