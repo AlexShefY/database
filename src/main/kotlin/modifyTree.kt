@@ -22,7 +22,7 @@ fun goAdd(nodeindex : Int, new : node) : Int{
     if(nodeindex == 0){
         return new.selfit
     }
-    var curNode = WorkWithFile("file_data.txt").readFrom(nodeindex)
+    var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
     if(new.priority > curNode.priority){
         swap(new, curNode)
     }
@@ -41,7 +41,7 @@ fun find(nodeindex : Int, toFind : node) : Boolean{
     if(nodeindex == 0){
         return false
     }
-    var curNode = WorkWithFile("file_data.txt").readFrom(nodeindex)
+    var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
     if(toFind.Hash == curNode.Hash){
         return true
     }
@@ -57,5 +57,19 @@ fun build(){
     WorkWithFile("file_data.txt").addWrite(digits(startnodeindex, 6) + "|")
     for(p in map){
         Add(listOf("add", p.Key, p.value))
+    }
+}
+
+fun getValue(nodeindex : Int, toFind : node) : String{
+    var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
+    if(toFind.Hash == curNode.Hash){
+        curNode = WorkWithFile("file_data.txt").readFromFull(nodeindex)
+        return curNode.value
+    }
+    if(toFind.Hash < curNode.Hash){
+        return getValue(curNode.left, toFind)
+    }
+    else{
+        return getValue(curNode.right, toFind)
     }
 }

@@ -68,7 +68,7 @@ class WorkWithFile(var path : String) {
         file.close()
         return res.toInt()
     }
-    fun readFrom(start : Int) : node{
+    fun readFromPart(start : Int) : node{
         file = RandomAccessFile(path, "rw")
         file.seek(start.toLong())
         var res = ""
@@ -113,6 +113,68 @@ class WorkWithFile(var path : String) {
             b = file.read()
         }
         newNode.selfit = res.toInt()
+        file.close()
+        return newNode
+    }
+    fun readFromFull(start : Int) : node{
+        file = RandomAccessFile(path, "rw")
+        file.seek(start.toLong())
+        var res = ""
+        var b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        var newNode = node(res.toInt())
+        res = ""
+        b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.left= res.toInt()
+        res = ""
+        b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.right = res.toInt()
+        res = ""
+        b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.Hash = res
+        res = ""
+        b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.priority = res.toInt()
+        res = ""
+        b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.selfit = res.toInt()
+        res = ""
+        b = file.read()
+        while(b.toChar() != '*'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.Key = res
+        res = ""
+        b = file.read()
+        while(b.toChar() != '|'){
+            res += b.toChar()
+            b = file.read()
+        }
+        newNode.value = res
         file.close()
         return newNode
     }

@@ -7,13 +7,14 @@ fun Change(args : List<String>){
         Error(Errors.Size)
         return
     }
-    WorkWithFile("file_data.txt").read()
-    for(p in map){
-        if(p.Key == args[1]){
-            p.value = args[2]
-            WorkWithFile("file_data.txt").write()
-            return
-        }
+    var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), args[1], "", 0, 0, WorkWithFile("file_data.txt").getLength())
+    new.countHash()
+    startnodeindex = WorkWithFile("file_data.txt").readFirst()
+    if(find(startnodeindex, new)){
+        Remove(listOf("remove", args[1]))
+        Add(listOf("add", args[1], args[2]))
     }
-    Error(Errors.NotExists)
+    else {
+        Error(Errors.NotExists)
+    }
 }
