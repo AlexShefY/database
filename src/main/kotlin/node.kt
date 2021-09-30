@@ -16,6 +16,9 @@ fun hashString(input: String, algorithm: String): String {
         .digest(input.toByteArray())
         .fold("", { str, it -> str + "%02x".format(it) })
 }
+/*
+ * Класс, предназначенный для хранения вершин декартова дерева
+ */
 class node(var used : Int = 0, var Hash : String = "", var priority : Int = 0, var Key : String = "",var value : String = "",var left : Int = 0, var right : Int = 0, var selfit : Int = 0){
     fun countHash()
     {

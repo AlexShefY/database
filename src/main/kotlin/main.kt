@@ -1,4 +1,6 @@
-
+/*
+ * В main мы считываем ввод и обрабатываем его
+ */
 var startnodeindex = 0
 var map : MutableList<node> = mutableListOf()
 fun main(args: Array<String>) {

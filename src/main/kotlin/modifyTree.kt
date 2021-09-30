@@ -1,4 +1,8 @@
 
+/*
+ * Эта функция добавляет новую вершину декартова дерева в файл и вызывает goAdd,
+ * которая добавит вершину в само дерево
+ */
 fun addNode(new : node){
     startnodeindex = WorkWithFile("file_data.txt").readFirst()
     WorkWithFile("file_data.txt").addWrite(new.toString())
@@ -10,7 +14,12 @@ fun addNode(new : node){
     }
     WorkWithFile("file_data.txt").writeFrom(0, digits(startnodeindex, 6))
 }
-
+/*
+ * Функция удаления вершины из декартова дерева, которая делит дерево
+ * на поддеревья вершин с меньшим хэшом, с равным(в этом поддереве будет только
+ *  вершина, которую мы удаляем, и с большим хэшом. А потом сливает
+ * поддеревья с меньшим и большим хэшом в одно декртово дерево
+ */
 fun removeNode(cur : node){
     startnodeindex = WorkWithFile("file_data.txt").readFirst()
     val (first, second) = split(startnodeindex, cur.Hash, false)
@@ -18,12 +27,18 @@ fun removeNode(cur : node){
     startnodeindex = merge(first1, second)
     WorkWithFile("file_data.txt").writeFrom(0, digits(startnodeindex, 6))
 }
+/*
+ * Функция, меняющая значения двух элементов класса местами
+ */
 fun swap(a : node, b : node){
     var c = node()
     c.set(a)
     a.set(b)
     b.set(c)
 }
+/*
+ * Функция, добавляющая вершину в декартово дерево
+ */
 fun goAdd(nodeindex : Int, new : node) : Int{
     if(nodeindex == 0){
         return new.selfit
@@ -42,8 +57,9 @@ fun goAdd(nodeindex : Int, new : node) : Int{
     }
     return curNode.selfit
 }
-
-
+/*
+ * Функция поиска вершины в дереве с заданным ключом
+ */
 fun find(nodeindex : Int, toFind : node) : Boolean{
     if(nodeindex == 0){
         return false
@@ -59,14 +75,20 @@ fun find(nodeindex : Int, toFind : node) : Boolean{
         return find(curNode.right, toFind)
     }
 }
-
+/*
+ * Функция, строящая декартово дерево по имеющимся
+ * у нас парам ключ-значение
+ */
 fun build(){
     WorkWithFile("file_data.txt").addWrite(digits(startnodeindex, 6) + "|")
     for(p in map){
         Add(listOf("add", p.Key, p.value))
     }
 }
-
+/*
+ * Функция, которая находит вершину в декартовом дереве с заданным ключом
+ * и возвращает значение для этого ключа
+ */
 fun getValue(nodeindex : Int, toFind : node) : String{
     var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
     if(toFind.Hash == curNode.Hash){
@@ -80,7 +102,9 @@ fun getValue(nodeindex : Int, toFind : node) : String{
         return getValue(curNode.right, toFind)
     }
 }
-
+/*
+ * Функция, которая сливает два поддерева
+ */
 fun merge(nodeindex1 : Int, nodeindex2 : Int) : Int{
     if(nodeindex1 == 0){
         return nodeindex2
@@ -99,7 +123,11 @@ fun merge(nodeindex1 : Int, nodeindex2 : Int) : Int{
         return curNode2.selfit
     }
 }
-
+/*
+ * Функция, разделяющая декартово дерево на два поддерева:
+ * с большим хэшом и меньшим хэшом( при этом в одном из поддеревьев может
+ * оказаться вершина с заданным хэшом, это зависит от флага)
+ */
 fun split(nodeindex : Int, forSplitHash : String, Flag : Boolean) : Pair<Int, Int>{
     if(nodeindex == 0){
         return Pair(0, 0)

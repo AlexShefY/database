@@ -3,11 +3,15 @@ import java.io.FileWriter
 import java.io.IOException
 import java.io.RandomAccessFile
 
-var globalIt = 7
-
+/*
+ * Класс, предназначенный для работы с файлом
+ */
 class WorkWithFile(var path : String) {
     lateinit var file : RandomAccessFile
-    public fun read() {
+    /*
+     * Чтение всего файла
+     */
+    fun read() {
         file = RandomAccessFile(path, "rw")
         file.seek(0)
         var str = ""
@@ -31,25 +35,38 @@ class WorkWithFile(var path : String) {
         }
         file.close()
     }
-    public fun write(){
+    /*
+     * Запись всех данных в файл
+     */
+    fun write(){
         file = RandomAccessFile(path, "rw")
         file.setLength(0)
         startnodeindex = 0
         build()
         file.close()
     }
-    public fun getLength() : Int {
+    /*
+     * Узнаем размер файла
+     */
+    fun getLength() : Int {
         file = RandomAccessFile(path, "rw")
         var len = file.length()
         file.close()
         return len.toInt()
     }
-    public fun addWrite(toWrite : String){
+    /*
+     * Добавляем данные в конец файла
+     */
+    fun addWrite(toWrite : String){
         file = RandomAccessFile(path, "rw")
         file.seek(file.length())
         file.writeBytes(toWrite)
         file.close()
     }
+    /*
+     * Считываем номер вершины, которая является корнем дерева.
+     * Этот номер мы записываем в начало файла
+     */
     fun readFirst() : Int{
         file = RandomAccessFile(path, "rw")
         file.seek(0)
@@ -62,6 +79,11 @@ class WorkWithFile(var path : String) {
         file.close()
         return res.toInt()
     }
+    /*
+     * Читаем данные вершины декартова дерева, за исключением ее ключа и значения(чтобы
+     * меньше тратилось времени). Здесь мы считываем всегда фиксированное количество символов,
+     * не обходимых для восстановаления декартова дерева и сравнения двух ключей.
+     */
     fun readFromPart(start : Int) : node{
         file = RandomAccessFile(path, "rw")
         file.seek(start.toLong())
@@ -110,6 +132,9 @@ class WorkWithFile(var path : String) {
         file.close()
         return newNode
     }
+    /*
+     * Здесь мы считываем все данне для вершины
+     */
     fun readFromFull(start : Int) : node{
         file = RandomAccessFile(path, "rw")
         file.seek(start.toLong())
@@ -172,6 +197,9 @@ class WorkWithFile(var path : String) {
         file.close()
         return newNode
     }
+    /*
+     * Записываем определенные данные для вершин или номер корня в файл
+     */
     fun writeFrom(from : Int, toWrite : String){
         file = RandomAccessFile(path, "rw")
         file.seek(from.toLong())
