@@ -80,121 +80,63 @@ class WorkWithFile(var path : String) {
         return res.toInt()
     }
     /*
+     * Читаем символы до встречающегося разделительного символа
+     */
+    fun readUntilChar(start : Int, char : Char) : Pair <String, Int> {
+        file = RandomAccessFile(path, "rw")
+        file.seek(start.toLong())
+        var res = ""
+        var b = file.read()
+        var start1 = start
+        while(b.toChar() != char){
+            res += b.toChar()
+            b = file.read()
+            start1++
+        }
+        start1++
+        file.close()
+        return Pair(res, start1)
+    }
+    /*
      * Читаем данные вершины декартова дерева, за исключением ее ключа и значения(чтобы
      * меньше тратилось времени). Здесь мы считываем всегда фиксированное количество символов,
      * не обходимых для восстановаления декартова дерева и сравнения двух ключей.
      */
     fun readFromPart(start : Int) : node{
-        file = RandomAccessFile(path, "rw")
-        file.seek(start.toLong())
-        var res = ""
-        var b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        var newNode = node(res.toInt())
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.left= res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.right = res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.Hash = res
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.priority = res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.selfit = res.toInt()
-        file.close()
+        val (res1, start1) = readUntilChar(start, '*')
+        var newNode = node(res1.toInt())
+        val (res2, start2) = readUntilChar(start1, '*')
+        newNode.left = res2.toInt()
+        val (res3, start3) = readUntilChar(start2, '*')
+        newNode.right = res3.toInt()
+        val (res4, start4) = readUntilChar(start3, '*')
+        newNode.Hash = res4
+        val (res5, start5) = readUntilChar(start4, '*')
+        newNode.priority = res5.toInt()
+        val (res6, start6) = readUntilChar(start5, '*')
+        newNode.selfit = res6.toInt()
         return newNode
     }
     /*
      * Здесь мы считываем все данне для вершины
      */
     fun readFromFull(start : Int) : node{
-        file = RandomAccessFile(path, "rw")
-        file.seek(start.toLong())
-        var res = ""
-        var b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        var newNode = node(res.toInt())
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.left= res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.right = res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.Hash = res
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.priority = res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.selfit = res.toInt()
-        res = ""
-        b = file.read()
-        while(b.toChar() != '*'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.Key = res
-        res = ""
-        b = file.read()
-        while(b.toChar() != '|'){
-            res += b.toChar()
-            b = file.read()
-        }
-        newNode.value = res
-        file.close()
+        val (res1, start1) = readUntilChar(start, '*')
+        var newNode = node(res1.toInt())
+        val (res2, start2) = readUntilChar(start1, '*')
+        newNode.left = res2.toInt()
+        val (res3, start3) = readUntilChar(start2, '*')
+        newNode.right = res3.toInt()
+        val (res4, start4) = readUntilChar(start3, '*')
+        newNode.Hash = res4
+        val (res5, start5) = readUntilChar(start4, '*')
+        newNode.priority = res5.toInt()
+        val (res6, start6) = readUntilChar(start5, '*')
+        newNode.selfit = res6.toInt()
+        val (res7, start7) = readUntilChar(start6, '*')
+        newNode.Key = res7
+        val (res8, start8) = readUntilChar(start7, '|')
+        newNode.value = res8
         return newNode
     }
     /*
