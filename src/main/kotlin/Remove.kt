@@ -7,15 +7,15 @@ fun Remove(arr : List<String>){
         Error(Errors.Size)
         return
     }
-    WorkWithFile("file_data.txt").read()
-    for(p in map.indices){
-        if(map[p].Key == arr[1]){
-            map.removeAt(p)
-            WorkWithFile("file_data.txt").write()
-            return
-        }
+    var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), arr[1], "", 0, 0, WorkWithFile("file_data.txt").getLength())
+    new.countHash()
+    startnodeindex = WorkWithFile("file_data.txt").readFirst()
+    if(find(startnodeindex, new)){
+        removeNode(new)
     }
-    Error(Errors.NotExists)
+    else {
+        Error(Errors.NotExists)
+    }
 }
 
 /*

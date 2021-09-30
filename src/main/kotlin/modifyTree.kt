@@ -2,7 +2,6 @@
 fun addNode(new : node){
     startnodeindex = WorkWithFile("file_data.txt").readFirst()
     WorkWithFile("file_data.txt").addWrite(new.toString())
-    globalIt += new.toString().length
     if(startnodeindex == 0){
         startnodeindex = new.selfit
     }
@@ -12,6 +11,13 @@ fun addNode(new : node){
     WorkWithFile("file_data.txt").writeFrom(0, digits(startnodeindex, 6))
 }
 
+fun removeNode(cur : node){
+    startnodeindex = WorkWithFile("file_data.txt").readFirst()
+    val (first, second) = split(startnodeindex, cur.Hash, false)
+    val (first1, second1) = split(first, cur.Hash, true)
+    startnodeindex = merge(first1, second)
+    WorkWithFile("file_data.txt").writeFrom(0, digits(startnodeindex, 6))
+}
 fun swap(a : node, b : node){
     var c = node()
     c.set(a)
@@ -36,6 +42,7 @@ fun goAdd(nodeindex : Int, new : node) : Int{
     }
     return curNode.selfit
 }
+
 
 fun find(nodeindex : Int, toFind : node) : Boolean{
     if(nodeindex == 0){
@@ -71,5 +78,46 @@ fun getValue(nodeindex : Int, toFind : node) : String{
     }
     else{
         return getValue(curNode.right, toFind)
+    }
+}
+
+fun merge(nodeindex1 : Int, nodeindex2 : Int) : Int{
+    if(nodeindex1 == 0){
+        return nodeindex2
+    }
+    if(nodeindex2 == 0){
+        return nodeindex1
+    }
+    var curNode1 = WorkWithFile("file_data.txt").readFromPart(nodeindex1)
+    var curNode2 = WorkWithFile("file_data.txt").readFromPart(nodeindex2)
+    if(curNode1.priority > curNode2.priority){
+        curNode1.right = merge(curNode1.right, nodeindex2)
+        return curNode1.selfit
+    }
+    else{
+        curNode2.left = merge(nodeindex1, curNode2.left)
+        return curNode2.selfit
+    }
+}
+
+fun split(nodeindex : Int, forSplitHash : String, Flag : Boolean) : Pair<Int, Int>{
+    if(nodeindex == 0){
+        return Pair(0, 0)
+    }
+    var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
+    if(curNode.Hash == forSplitHash){
+        WorkWithFile("file_data.txt").writeFrom(curNode.selfit, "0")
+    }
+    if(curNode.Hash > forSplitHash || curNode.Hash == forSplitHash && Flag){
+        val (a, b) = split(curNode.left, forSplitHash, Flag)
+        curNode.left = b
+        WorkWithFile("file_data.txt").writeFrom(curNode.selfit + 2, digits(curNode.left, 6))
+        return Pair(a, curNode.selfit)
+    }
+    else{
+        val (a, b) = split(curNode.right, forSplitHash, Flag)
+        curNode.right = a
+        WorkWithFile("file_data.txt").writeFrom(curNode.selfit + 2 + 7, digits(curNode.right, 6))
+        return Pair(curNode.selfit, b)
     }
 }

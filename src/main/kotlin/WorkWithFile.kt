@@ -36,12 +36,6 @@ class WorkWithFile(var path : String) {
         file.setLength(0)
         startnodeindex = 0
         build()
-        file.writeBytes(digits(startnodeindex, 6))
-        file.writeBytes("|")
-        map.forEach {
-            file.writeBytes(it.toString())
-            globalIt += it.toString().length
-        }
         file.close()
     }
     public fun getLength() : Int {

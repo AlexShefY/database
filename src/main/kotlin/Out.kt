@@ -51,7 +51,7 @@ fun FilterOut(arr : List<String>){
                 IfLength({a, b -> a >= b}, v)
             }
             ">" -> {
-                IfLength({a, b -> a < v}, v)
+                IfLength({a, b -> a > b}, v)
             }
             "==" -> {
                 IfLength({a, b -> a == b}, v)
