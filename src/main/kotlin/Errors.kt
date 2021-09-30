@@ -13,7 +13,7 @@ fun Error(err : Errors){
     when(err.name){
         "Size" -> println("Invalid amount of input")
         "Exists" -> println("This item already exists")
-        "NotExists" -> println("This item doesn`t exists")
+        "NotExists" -> println("This item doesn`t exist")
         else -> println("Invalid input")
     }
 }

@@ -10,7 +10,7 @@ fun digits(a : Int, t : Int) : String{
 /*
  * Хэшируем строку
  */
-private fun hashString(input: String, algorithm: String): String {
+fun hashString(input: String, algorithm: String): String {
     return MessageDigest
         .getInstance(algorithm)
         .digest(input.toByteArray())
