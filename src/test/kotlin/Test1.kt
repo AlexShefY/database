@@ -1,5 +1,6 @@
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
+import kotlin.system.measureNanoTime
 import kotlin.test.*
 
 internal class Test1 {
@@ -59,5 +60,27 @@ internal class Test1 {
         assertEquals(hashString("mdckns0f421-3irlknsldjh2pwjnlnjj\\/.'::", "SHA-256"), hashString("mdckns0f421-3irlknsldjh2pwjnlnjj\\/.'::", "SHA-256"))
         assertNotEquals(hashString("abc", "SHA-256"), hashString("abcd", "SHA-256"))
         assertNotEquals(hashString("njuhioomnjhiupwkjjhywgefpw", "SHA-256"), hashString("njuhioomnjhiupwkjjhywgef.pw", "SHA-256"))
+    }
+    /*
+     * Проверяю время и корректность работы
+     */
+    @Test
+    fun testTimer(){
+        RemoveAll()
+        val Time = measureNanoTime {
+        var test = 1e3.toInt()
+        while(test > 0){
+            cnt = 0
+            Add(listOf("in", "$test", "${test * test}"))
+            var q = (test..1e3.toInt()).random()
+            var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), "$q", "", 0, 0, WorkWithFile("file_data.txt").getLength())
+            new.countHash()
+            startnodeindex = WorkWithFile("file_data.txt").readFirst()
+            assert(find(startnodeindex, new))
+            assert(cnt <= 100)
+            test--
+        }
+        }
+        assert(Time / 1e9 <= 200) // проработали меньше 200 секунд
     }
 }

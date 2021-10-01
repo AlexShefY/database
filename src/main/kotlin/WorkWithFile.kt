@@ -109,9 +109,7 @@ class WorkWithFile(var path : String) {
         newNode.left = res2.toInt()
         val (res3, start3) = readUntilChar(start2, '*')
         newNode.right = res3.toInt()
-        val (res4, start4) = readUntilChar(start3, '*')
-        newNode.Hash = res4
-        val (res5, start5) = readUntilChar(start4, '*')
+        val (res5, start5) = readUntilChar(start3 + 65, '*')
         newNode.priority = res5.toInt()
         val (res6, start6) = readUntilChar(start5, '*')
         newNode.selfit = res6.toInt()
@@ -138,6 +136,19 @@ class WorkWithFile(var path : String) {
         val (res8, start8) = readUntilChar(start7, '|')
         newNode.value = res8
         return newNode
+    }
+    fun readCnt(from : Int, cnt : Int) : String{
+        file = RandomAccessFile(path, "rw")
+        file.seek(from.toLong())
+        var res = ""
+        var i = 0
+        while(i < cnt){
+            var b = file.read()
+            res += b.toChar()
+            i++
+        }
+        file.close()
+        return res
     }
     /*
      * Записываем определенные данные для вершин или номер корня в файл

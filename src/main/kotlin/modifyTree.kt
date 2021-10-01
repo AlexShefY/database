@@ -1,4 +1,5 @@
-
+import kotlin.math.*
+var cnt = 0
 /*
  * Эта функция добавляет новую вершину декартова дерева в файл и вызывает goAdd,
  * которая добавит вершину в само дерево
@@ -6,12 +7,9 @@
 fun addNode(new : node){
     startnodeindex = WorkWithFile("file_data.txt").readFirst()
     WorkWithFile("file_data.txt").addWrite(new.toString())
-    if(startnodeindex == 0){
-        startnodeindex = new.selfit
-    }
-    else {
-        startnodeindex = goAdd(startnodeindex, new)
-    }
+    val (first, second) = split(startnodeindex, new.Hash, false)
+    val first2 = merge(first, new.selfit)
+    startnodeindex = merge(first2, second)
     WorkWithFile("file_data.txt").writeFrom(0, digits(startnodeindex, 6))
 }
 /*
@@ -36,39 +34,36 @@ fun swap(a : node, b : node){
     a.set(b)
     b.set(c)
 }
-/*
- * Функция, добавляющая вершину в декартово дерево
- */
-fun goAdd(nodeindex : Int, new : node) : Int{
-    if(nodeindex == 0){
-        return new.selfit
+fun compareHash(itfirst : Int, HashSecond : String) : Int{
+    var parts = 0
+    while(parts < 16){
+        var str1 = WorkWithFile("file_data.txt").readCnt(itfirst + parts * 4 + 16, 4)
+        for(i in 0..3){
+            if(str1[i] < HashSecond[parts * 4 + i]){
+                return -1
+            }
+            if(str1[i] > HashSecond[parts * 4 + i]){
+                return 1
+            }
+        }
+        parts++
     }
-    var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
-    if(new.priority > curNode.priority){
-        swap(new, curNode)
-    }
-    if(new.Hash < curNode.Hash){
-        curNode.left = goAdd(curNode.left, new)
-        WorkWithFile("file_data.txt").writeFrom(curNode.selfit + 2, digits(curNode.left, 6))
-    }
-    else{
-        curNode.right = goAdd(curNode.right, new)
-        WorkWithFile("file_data.txt").writeFrom(curNode.selfit + 2 + 7, digits(curNode.right, 6))
-    }
-    return curNode.selfit
+    return 0
 }
 /*
  * Функция поиска вершины в дереве с заданным ключом
  */
 fun find(nodeindex : Int, toFind : node) : Boolean{
+    cnt++
     if(nodeindex == 0){
         return false
     }
     var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
-    if(toFind.Hash == curNode.Hash){
+    var rescompare = compareHash(curNode.selfit, toFind.Hash)
+    if(rescompare == 0){
         return true
     }
-    if(toFind.Hash < curNode.Hash){
+    if(rescompare > 0){
         return find(curNode.left, toFind)
     }
     else{
@@ -91,11 +86,12 @@ fun build(){
  */
 fun getValue(nodeindex : Int, toFind : node) : String{
     var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
-    if(toFind.Hash == curNode.Hash){
+    var res = compareHash(curNode.selfit, toFind.Hash)
+    if(res == 0){
         curNode = WorkWithFile("file_data.txt").readFromFull(nodeindex)
         return curNode.value
     }
-    if(toFind.Hash < curNode.Hash){
+    if(res > 0){
         return getValue(curNode.left, toFind)
     }
     else{
@@ -106,6 +102,7 @@ fun getValue(nodeindex : Int, toFind : node) : String{
  * Функция, которая сливает два поддерева
  */
 fun merge(nodeindex1 : Int, nodeindex2 : Int) : Int{
+    cnt++
     if(nodeindex1 == 0){
         return nodeindex2
     }
@@ -116,10 +113,12 @@ fun merge(nodeindex1 : Int, nodeindex2 : Int) : Int{
     var curNode2 = WorkWithFile("file_data.txt").readFromPart(nodeindex2)
     if(curNode1.priority > curNode2.priority){
         curNode1.right = merge(curNode1.right, nodeindex2)
+        WorkWithFile("file_data.txt").writeFrom(curNode1.selfit + 2 + 7, digits(curNode1.right, 6))
         return curNode1.selfit
     }
     else{
         curNode2.left = merge(nodeindex1, curNode2.left)
+        WorkWithFile("file_data.txt").writeFrom(curNode2.selfit + 2, digits(curNode2.left, 6))
         return curNode2.selfit
     }
 }
@@ -128,15 +127,17 @@ fun merge(nodeindex1 : Int, nodeindex2 : Int) : Int{
  * с большим хэшом и меньшим хэшом( при этом в одном из поддеревьев может
  * оказаться вершина с заданным хэшом, это зависит от флага)
  */
-fun split(nodeindex : Int, forSplitHash : String, Flag : Boolean) : Pair<Int, Int>{
+fun split(nodeindex : Int, forSplitHash :String, Flag : Boolean) : Pair<Int, Int>{
+    cnt++
     if(nodeindex == 0){
         return Pair(0, 0)
     }
     var curNode = WorkWithFile("file_data.txt").readFromPart(nodeindex)
-    if(curNode.Hash == forSplitHash){
+    var res = compareHash(curNode.selfit, forSplitHash)
+    if(res == 0){
         WorkWithFile("file_data.txt").writeFrom(curNode.selfit, "0")
     }
-    if(curNode.Hash > forSplitHash || curNode.Hash == forSplitHash && Flag){
+    if(res > 0|| res == 0 && Flag){
         val (a, b) = split(curNode.left, forSplitHash, Flag)
         curNode.left = b
         WorkWithFile("file_data.txt").writeFrom(curNode.selfit + 2, digits(curNode.left, 6))
