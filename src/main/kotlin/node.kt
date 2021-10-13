@@ -16,9 +16,19 @@ fun hashString(input: String, algorithm: String): String {
         .digest(input.toByteArray())
         .fold("", { str, it -> str + "%02x".format(it) })
 }
+
+/*
+ * Функция, предназначенная для создания вершины
+ */
+fun createNode(key : String, value : String, file : String) : node{
+    var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), key, value, 0, 0, getLength(file))
+    new.countHash()
+    return new
+}
 /*
  * Класс, предназначенный для хранения вершин декартова дерева
  */
+
 class node(var used : Int = 0, var Hash : String = "", var priority : Int = 0, var Key : String = "",var value : String = "",var left : Int = 0, var right : Int = 0, var selfit : Int = 0){
     fun countHash()
     {
