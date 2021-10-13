@@ -1,3 +1,4 @@
+import java.io.File
 import java.nio.charset.Charset
 
 /*
@@ -14,6 +15,12 @@ fun main(args: Array<String>) {
         var arr = s.split(" ")
         if(!mapActions.containsKey(arr[0])){
             Error(Errors.Other)
+        }
+        else if(arr.size < 2){
+            Error(Errors.Size)
+        }
+        else if(!File(arr[1]).exists()){
+            Error(Errors.FileNotExists)
         }
         else{
             mapActions[arr[0]]?.let { it(arr) }

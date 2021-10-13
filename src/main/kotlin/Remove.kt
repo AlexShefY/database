@@ -3,15 +3,15 @@
  * Удаляем конкретный ключ
  */
 fun Remove(arr : List<String>){
-    if(arr.size != 2){
+    if(arr.size != 3){
         Error(Errors.Size)
         return
     }
-    var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), arr[1], "", 0, 0, WorkWithFile("file_data.txt").getLength())
+    var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), arr[2], "", 0, 0, getLength(arr[1]))
     new.countHash()
-    startnodeindex = WorkWithFile("file_data.txt").readFirst()
-    if(find(startnodeindex, new)){
-        removeNode(new)
+    startnodeindex = readFirst(arr[1])
+    if(find(arr[1], startnodeindex, new)){
+        removeNode(arr[1], new)
     }
     else {
         Error(Errors.NotExists)
@@ -22,9 +22,13 @@ fun Remove(arr : List<String>){
  * Очищаем словарь
  */
 fun RemoveAll(arr : List<String>){
-    WorkWithFile("file_data.txt").read()
+    if(arr.size != 2){
+        Error(Errors.Size)
+        return
+    }
+    read(arr[1])
     map.clear()
-    WorkWithFile("file_data.txt").write()
+    write(arr[1])
 }
 
 /*
@@ -47,18 +51,22 @@ fun removeIfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
  * от соответствия условию
  */
 fun RemoveIf(arr : List<String>){
-    WorkWithFile("file_data.txt").read()
-    if(arr[1] == "length"){
-        if(arr.size != 4){
+    if(arr.size < 3){
+        Error(Errors.Size)
+        return
+    }
+    read(arr[1])
+    if(arr[2] == "length"){
+        if(arr.size != 5){
             Error(Errors.Size)
             return
         }
-        var v : Int? = arr[3].toIntOrNull()
+        var v : Int? = arr[4].toIntOrNull()
         if(v == null){
             Error(Errors.Other)
             return
         }
-        when(arr[2]){
+        when(arr[3]){
             "<" -> {
                 removeIfLength({a, b -> a < b}, v)
             }
@@ -76,10 +84,10 @@ fun RemoveIf(arr : List<String>){
             }
             else -> Error(Errors.Other)
         }
-        WorkWithFile("file_data.txt").write()
+        write(arr[1])
     }
-    else if(arr[1] == "regex"){
-        var pattern = arr[2].toRegex()
+    else if(arr[2] == "regex"){
+        var pattern = arr[3].toRegex()
         var toDelete = mutableListOf<node>()
         map.forEach{
                 node ->
@@ -90,7 +98,7 @@ fun RemoveIf(arr : List<String>){
         for(key in toDelete){
             map.remove(key)
         }
-        WorkWithFile("file_data.txt").write()
+        write(arr[1])
     }
     else{
         Error(Errors.Other)

@@ -22,35 +22,35 @@ internal class Test1 {
     }
     @Test
     fun test1(){
-        RemoveAll(listOf())
-        Add(listOf("add", "one", "1"))
-        Add(listOf("add", "two", "2"))
-        Extract(listOf("extract", "two"))
-        In(listOf("in", "one"))
-        Extract(listOf("extract", "three"))
-        Remove(listOf("remove", "three"))
-        Remove(listOf("remove", "two"))
-        Extract(listOf("extract", "two"))
-        Add(listOf("add", "one hundred", "100"))
-        RemoveIf(listOf("RemoveIf", "regex", "one \\w*"))
-        In(listOf("in", "one hundred"))
-        Extract(listOf("extract", "one"))
+        RemoveAll(listOf("remove", "file_data.txt"))
+        Add(listOf("add", "file_data.txt", "one", "1"))
+        Add(listOf("add", "file_data.txt", "two", "2"))
+        Extract(listOf("extract", "file_data.txt", "two"))
+        In(listOf("in", "file_data.txt", "one"))
+        Extract(listOf("extract", "file_data.txt", "three"))
+        Remove(listOf("remove", "file_data.txt", "three"))
+        Remove(listOf("remove", "file_data.txt", "two"))
+        Extract(listOf("extract", "file_data.txt", "two"))
+        Add(listOf("add", "file_data.txt", "one hundred", "100"))
+        RemoveIf(listOf("RemoveIf", "file_data.txt", "regex", "one \\w*"))
+        In(listOf("in", "file_data.txt", "one hundred"))
+        Extract(listOf("extract", "file_data.txt", "one"))
         assertEquals(getOutput(), listOf("2", "This key exists", "This item doesn`t exist", "This item doesn`t exist", "This item doesn`t exist","This key doesn`t exist", "1"))
     }
     @Test
     fun test2(){
-        RemoveAll(listOf())
-        In(listOf("in", "word1"))
-        Remove(listOf("remove", "word2"))
-        Add(listOf("add", "key1", "value1"))
-        Add(listOf("add", "key11", "value2"))
-        Add(listOf("add", "key1", "value3"))
-        Extract(listOf("extract", "key1"))
-        Extract(listOf("extract", "key2"))
-        In(listOf("in"))
-        Add(listOf("add", "key3"))
-        RemoveIf(listOf("RemoveIf", "regex", "key1\\w*"))
-        Extract(listOf("extract", "key1"))
+        RemoveAll(listOf("remove", "file_data.txt"))
+        In(listOf("in", "file_data.txt", "word1"))
+        Remove(listOf("remove", "file_data.txt", "word2"))
+        Add(listOf("add", "file_data.txt", "key1", "value1"))
+        Add(listOf("add", "file_data.txt", "key11", "value2"))
+        Add(listOf("add", "file_data.txt", "key1", "value3"))
+        Extract(listOf("extract", "file_data.txt", "key1"))
+        Extract(listOf("extract", "file_data.txt", "key2"))
+        In(listOf("in", "file_data.txt"))
+        Add(listOf("add", "file_data.txt", "key3"))
+        RemoveIf(listOf("RemoveIf", "file_data.txt", "regex", "key1\\w*"))
+        Extract(listOf("extract", "file_data.txt", "key1"))
         assertEquals(getOutput(), listOf("This key doesn`t exist", "This item doesn`t exist", "This item already exists", "value1", "This item doesn`t exist", "Invalid amount of input",
             "Invalid amount of input", "This item doesn`t exist"))
     }
@@ -66,17 +66,17 @@ internal class Test1 {
      */
     @Test
     fun testTimer(){
-        RemoveAll(listOf())
+        RemoveAll(listOf("remove", "file_data.txt"))
         val Time = measureNanoTime {
         var test = 1000.toInt()
         while(test > 0){
             cnt = 0
-            Add(listOf("in", "$test", "${test * test}"))
+            Add(listOf("in", "file_data.txt", "$test", "${test * test}"))
             var q = (test..1000.toInt()).random()
-            var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), "$q", "", 0, 0, WorkWithFile("file_data.txt").getLength())
+            var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), "$q", "", 0, 0, getLength("file_data.txt"))
             new.countHash()
-            startnodeindex = WorkWithFile("file_data.txt").readFirst()
-            assert(find(startnodeindex, new))
+            startnodeindex = readFirst("file_data.txt")
+            assert(find("file_data.txt", startnodeindex, new))
             assert(cnt <= 100)
             test--
         }
