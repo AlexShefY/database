@@ -21,7 +21,7 @@ fun Remove(arr : List<String>){
 /*
  * Очищаем словарь
  */
-fun RemoveAll(){
+fun RemoveAll(arr : List<String>){
     WorkWithFile("file_data.txt").read()
     map.clear()
     WorkWithFile("file_data.txt").write()

@@ -22,7 +22,7 @@ internal class Test1 {
     }
     @Test
     fun test1(){
-        RemoveAll()
+        RemoveAll(listOf())
         Add(listOf("add", "one", "1"))
         Add(listOf("add", "two", "2"))
         Extract(listOf("extract", "two"))
@@ -39,7 +39,7 @@ internal class Test1 {
     }
     @Test
     fun test2(){
-        RemoveAll()
+        RemoveAll(listOf())
         In(listOf("in", "word1"))
         Remove(listOf("remove", "word2"))
         Add(listOf("add", "key1", "value1"))
@@ -66,13 +66,13 @@ internal class Test1 {
      */
     @Test
     fun testTimer(){
-        RemoveAll()
+        RemoveAll(listOf())
         val Time = measureNanoTime {
-        var test = 1e3.toInt()
+        var test = 1000.toInt()
         while(test > 0){
             cnt = 0
             Add(listOf("in", "$test", "${test * test}"))
-            var q = (test..1e3.toInt()).random()
+            var q = (test..1000.toInt()).random()
             var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), "$q", "", 0, 0, WorkWithFile("file_data.txt").getLength())
             new.countHash()
             startnodeindex = WorkWithFile("file_data.txt").readFirst()
@@ -81,6 +81,6 @@ internal class Test1 {
             test--
         }
         }
-        assert(Time / 1e9 <= 200) // проработали меньше 200 секунд
+        assert(Time / 1e9 <= 400) // проработали меньше 400 секунд
     }
 }

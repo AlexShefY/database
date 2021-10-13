@@ -2,7 +2,7 @@
 /*
  * Функция, выводящая содержание базы данных
  */
-fun Out(){
+fun Out(arr : List<String>){
     WorkWithFile("file_data.txt").read()
     if(map.isEmpty()){
         println("Data Base is empty")

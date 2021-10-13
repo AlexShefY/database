@@ -2,6 +2,7 @@ import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.io.RandomAccessFile
+import java.nio.charset.Charset
 
 /*
  * Класс, предназначенный для работы с файлом
@@ -29,7 +30,6 @@ class WorkWithFile(var path : String) {
             }
             else if(node.size == 1 && node[0].length==6){
                 startnodeindex = node[0].substring(0, 5).toInt()
-              //  startnodeindex = 0
             }
             it += line.length + 1
         }
@@ -137,6 +137,9 @@ class WorkWithFile(var path : String) {
         newNode.value = res8
         return newNode
     }
+    /*
+     * Прочитать определенное количество символов из файла, начиная с from
+     */
     fun readCnt(from : Int, cnt : Int) : String{
         file = RandomAccessFile(path, "rw")
         file.seek(from.toLong())

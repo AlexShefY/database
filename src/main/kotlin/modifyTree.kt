@@ -34,6 +34,9 @@ fun swap(a : node, b : node){
     a.set(b)
     b.set(c)
 }
+/*
+ * Сравниваем хэши строк
+ */
 fun compareHash(itfirst : Int, HashSecond : String) : Int{
     var parts = 0
     while(parts < 16){
