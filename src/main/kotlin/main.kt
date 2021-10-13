@@ -15,16 +15,17 @@ fun main(args: Array<String>) {
         var arr = s.split(" ")
         if(!mapActions.containsKey(arr[0])){
             Error(Errors.Other)
+            return
         }
         else if(arr.size < 2){
             Error(Errors.Size)
+            return
         }
         else if(!File(arr[1]).exists()){
             Error(Errors.FileNotExists)
+            return
         }
-        else{
-            mapActions[arr[0]]?.let { it(arr) }
-        }
+        mapActions[arr[0]]?.let { it(arr) }
         print(">")
         s = readLine()!!
     }
