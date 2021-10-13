@@ -32,6 +32,8 @@ fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
  * Функиця, выводящая пары ключ-значения в зависимости
  * от соответствия ключа заданному условию
  */
+var mapActionsFilter = mapOf(">" to {a : Int, b : Int -> a > b}, "<" to {a : Int, b : Int -> a < b},
+"<=" to {a : Int, b : Int -> a <= b}, ">=" to {a : Int, b : Int -> a >= b}, "==" to {a : Int, b : Int -> a == b})
 fun FilterOut(arr : List<String>){
     if(arr.size < 2){
         Error(Errors.Size)
@@ -44,28 +46,11 @@ fun FilterOut(arr : List<String>){
             return
         }
         var v : Int? = arr[4].toIntOrNull()
-        if(v == null){
+        if(!mapActionsFilter.containsKey(arr[3]) || v == null){
             Error(Errors.Other)
             return
         }
-        when(arr[3]){
-            "<" -> {
-                IfLength({a, b -> a < b}, v)
-            }
-            "<=" -> {
-                IfLength({a, b -> a <= b}, v)
-            }
-            ">=" -> {
-                IfLength({a, b -> a >= b}, v)
-            }
-            ">" -> {
-                IfLength({a, b -> a > b}, v)
-            }
-            "==" -> {
-                IfLength({a, b -> a == b}, v)
-            }
-            else -> Error(Errors.Other)
-        }
+        mapActionsFilter[arr[3]]?.let { IfLength(it, v) }
         write(arr[1])
     }
     else if(arr[2] == "regex"){
