@@ -66,24 +66,7 @@ fun RemoveIf(arr : List<String>){
             Error(Errors.Other)
             return
         }
-        when(arr[3]){
-            "<" -> {
-                removeIfLength({a, b -> a < b}, v)
-            }
-            "<=" -> {
-                removeIfLength({a, b -> a <= b}, v)
-            }
-            ">=" -> {
-                removeIfLength({a, b -> a >= b}, v)
-            }
-            ">" -> {
-                removeIfLength({a, b -> a < v}, v)
-            }
-            "==" -> {
-                removeIfLength({a, b -> a == b}, v)
-            }
-            else -> Error(Errors.Other)
-        }
+        mapActionsFilter[arr[3]]?.let { removeIfLength(it, v) }
         write(arr[1])
     }
     else if(arr[2] == "regex"){
