@@ -3,6 +3,7 @@
 >We store the database in the form of a Cartesian tree.
 >Cartesian tree vertices are stored as strings "used Hash priority key value left right selfit":
 >>used - responsible for the presence of an element in the database
+> 
 >>Hash - key hash
 > 
 >>priority - priority node in Cartesian tree
