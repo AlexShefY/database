@@ -1,8 +1,8 @@
 # Курс основ программирования на МКН СПбГУ
-## Проект 2: key-value база данных
+## Project 2: key-value database
 ### Terms of use
 
->[[How it works](C:\Users\1258734\IdeaProjects\pf-2021-kvdb-AlexShefY\description.md)]
+>[How it works](description.md)
 
 >The program starts executing after starting the file pf-2021-diff-main.jar
 >that is in the directory pf-2021-kvdb-AlexShefY\out\artifacts\pf_2021_kvdb_main_jar

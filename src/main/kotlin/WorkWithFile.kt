@@ -5,11 +5,11 @@ import java.io.RandomAccessFile
 import java.nio.charset.Charset
 
 /*
- * Класс, предназначенный для работы с файлом
+ * A class for working with a file
  */
 lateinit var file : RandomAccessFile
 /*
- * Чтение всего файла
+ * Reading the entire file
 */
 
 fun read(path : String) {
@@ -36,7 +36,7 @@ fun read(path : String) {
     file.close()
 }
 /*
- * Запись всех данных в файл
+ * Writing all data to a file
 */
 fun write(path : String){
     file = RandomAccessFile(path, "rw")
@@ -46,7 +46,7 @@ fun write(path : String){
     file.close()
 }
 /*
- * Узнаем размер файла
+ * Find out the file size
 */
 fun getLength(path : String) : Int {
     file = RandomAccessFile(path, "rw")
@@ -55,7 +55,7 @@ fun getLength(path : String) : Int {
     return len.toInt()
 }
 /*
- * Добавляем данные в конец файла
+ * Adding data to the end of the file
 */
 fun addWrite(path : String, toWrite : String){
     file = RandomAccessFile(path, "rw")
@@ -64,8 +64,8 @@ fun addWrite(path : String, toWrite : String){
     file.close()
 }
 /*
- * Считываем номер вершины, которая является корнем дерева.
- * Этот номер мы записываем в начало файла
+ * We read the number of the vertex, which is the root of the tree.
+ * We write this number at the beginning of the file
 */
 fun readFirst(path : String) : Int{
     file = RandomAccessFile(path, "rw")
@@ -80,7 +80,7 @@ fun readFirst(path : String) : Int{
     return res.toInt()
 }
 /*
- * Читаем символы до встречающегося разделительного символа
+ * We read characters up to the encountered separator character
 */
 fun readUntilChar(path : String, start : Int, char : Char) : Pair <String, Int> {
     file = RandomAccessFile(path, "rw")
@@ -98,9 +98,9 @@ fun readUntilChar(path : String, start : Int, char : Char) : Pair <String, Int> 
     return Pair(res, start1)
 }
 /*
- * Читаем данные вершины декартова дерева, за исключением ее ключа и значения(чтобы
- * меньше тратилось времени). Здесь мы считываем всегда фиксированное количество символов,
- * не обходимых для восстановаления декартова дерева и сравнения двух ключей.
+ * We read the data of vertices of the Cartesian tree, with the exception of its key and value (so that
+ * less time wasted). Here we always read a fixed number of characters,
+ * required for restoring a Cartesian tree and comparing two keys.
 */
 fun readFromPart(path : String, start : Int) : node{
     val (res1, start1) = readUntilChar(path, start, '*')
@@ -116,7 +116,7 @@ fun readFromPart(path : String, start : Int) : node{
     return newNode
 }
 /*
- * Здесь мы считываем все данне для вершины
+ * Here we read all the data for the top
 */
 fun readFromFull(path : String, start : Int) : node{
     val (res1, start1) = readUntilChar(path, start, '*')
@@ -138,7 +138,7 @@ fun readFromFull(path : String, start : Int) : node{
     return newNode
 }
 /*
- * Прочитать определенное количество символов из файла, начиная с from
+ * Read a specific number of characters from a file, starting at "from"
 */
 fun readCnt(path : String, from : Int, cnt : Int) : String{
     file = RandomAccessFile(path, "rw")
@@ -154,7 +154,7 @@ fun readCnt(path : String, from : Int, cnt : Int) : String{
     return res
 }
 /*
- * Записываем определенные данные для вершин или номер корня в файл
+ * We write certain data for the vertices and the number of the root of a Cartesian tree to a file
 */
 fun writeFrom(path : String, from : Int, toWrite : String){
     file = RandomAccessFile(path, "rw")

@@ -1,6 +1,6 @@
 
 /*
- * Фукнция, проверяющая существование ключа в словаре
+ * Function that checks the existence of a key in a dictionary
  */
 fun In(args : List<String>){
     if(args.size != 3){

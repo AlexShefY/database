@@ -1,13 +1,13 @@
 
 /*
- * Класс для обработки ошибок
+ * Class for handling errors
  */
 enum class Errors{
     Size, Exists, Other, NotExists, FileNotExists
 }
 
 /*
- * В зависимости от ошибки выводим сообщение
+ * Depending on the error, we display the message
  */
 fun Error(err : Errors){
     when(err.name){

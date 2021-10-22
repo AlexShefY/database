@@ -1,6 +1,6 @@
 
 /*
- * Функция, выводящая содержание базы данных
+ * Function that displays the contents of the database
  */
 fun Out(arr : List<String>){
     if(arr.size != 2){
@@ -17,8 +17,8 @@ fun Out(arr : List<String>){
 }
 
 /*
- * Функция, выводящая пары ключ-значения в зависимости
- * от соостветствия ключа условию на его длину
+ * Function that outputs key-value pairs depending on
+ * from the match of the key to the condition for its length
  */
 
 fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
@@ -29,8 +29,8 @@ fun IfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
     }
 }
 /*
- * Функиця, выводящая пары ключ-значения в зависимости
- * от соответствия ключа заданному условию
+ * Function that outputs key-value pairs depending on
+ * from the match of a key to a given condition
  */
 var mapActionsFilter = mapOf(">" to {a : Int, b : Int -> a > b}, "<" to {a : Int, b : Int -> a < b},
 "<=" to {a : Int, b : Int -> a <= b}, ">=" to {a : Int, b : Int -> a >= b}, "==" to {a : Int, b : Int -> a == b})

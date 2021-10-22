@@ -18,7 +18,7 @@ fun Remove(arr : List<String>){
 }
 
 /*
- * Очищаем словарь
+ * Clearing the map
  */
 fun RemoveAll(arr : List<String>){
     if(arr.size != 2){
@@ -31,8 +31,8 @@ fun RemoveAll(arr : List<String>){
 }
 
 /*
- * Функция, реализующая кдаления в зависимости от того,
- * соотвествует ли длина заданному условию
+ * A function that implements deletions depending on whether
+ * whether the length meets the specified condition
  */
 fun removeIfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
     var toDelete : MutableList<node> = mutableListOf()
@@ -46,8 +46,8 @@ fun removeIfLength(func : (a : Int, b : Int) -> Boolean, x : Int){
     }
 }
 /*
- * Функция, реализующая удаление в зависимости
- * от соответствия условию
+ * Function that implements deletion depending on
+ * from compliance with the condition
  */
 fun RemoveIf(arr : List<String>){
     if(arr.size < 3){

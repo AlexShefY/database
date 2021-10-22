@@ -1,6 +1,6 @@
 
 /*
- * Функция добавления пары ключ - значение
+ * Function for adding a key-value pair
  */
 
 fun Add(arr : List<String>){

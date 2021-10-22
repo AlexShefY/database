@@ -1,14 +1,14 @@
 import java.security.MessageDigest
 
 /*
- * Преобразуем число в строку длины 6
- * (возмножно с лидирующими нулями)
+ * Convert the number to a string of length 6
+ * (possibly with leading zeros)
  */
 fun digits(a : Int, t : Int) : String{
     return "%0${t}d".format(a)
 }
 /*
- * Хэшируем строку
+ * Hash the string
  */
 fun hashString(input: String, algorithm: String): String {
     return MessageDigest
@@ -18,7 +18,7 @@ fun hashString(input: String, algorithm: String): String {
 }
 
 /*
- * Функция, предназначенная для создания вершины
+ * Function for creating a vertex
  */
 fun createNode(key : String, value : String, file : String) : node{
     var new = node(1, "0".repeat(64), (0..(1e15 - 1).toInt()).random(), key, value, 0, 0, getLength(file))
@@ -26,7 +26,7 @@ fun createNode(key : String, value : String, file : String) : node{
     return new
 }
 /*
- * Класс, предназначенный для хранения вершин декартова дерева
+ * Class for storing the vertices of a Cartesian tree
  */
 
 class node(var used : Int = 0, var Hash : String = "", var priority : Int = 0, var Key : String = "",var value : String = "",var left : Int = 0, var right : Int = 0, var selfit : Int = 0){

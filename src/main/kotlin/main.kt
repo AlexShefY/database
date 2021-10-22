@@ -2,12 +2,12 @@ import java.io.File
 import java.nio.charset.Charset
 
 /*
- * В main мы считываем ввод и обрабатываем его
+ * In main we read the input and process it
  */
 var startnodeindex = 0
 var map : MutableList<node> = mutableListOf()
 var mapActions = mapOf("add" to :: Add, "extract" to :: Extract, "in" to :: In, "out" to :: Out, "remove" to :: Remove,
-"removeAll" to  :: RemoveAll, "removeIf" to :: RemoveIf, "filterOut" to :: FilterOut)
+"removeAll" to  :: RemoveAll, "removeIf" to :: RemoveIf, "filterOut" to :: FilterOut, "Change" to :: Change)
 fun main(args: Array<String>) {
     print(">")
     var s = String(readLine()!!.toByteArray(), Charset.forName("Windows-1251"))

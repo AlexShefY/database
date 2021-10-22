@@ -1,6 +1,6 @@
 
 /*
- * Функция, изменяющая значение для существующего ключа
+ * A function that changes the value for an existing key
  */
 fun Change(args : List<String>){
     if(args.size != 4){

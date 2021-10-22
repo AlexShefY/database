@@ -1,8 +1,8 @@
 import kotlin.math.*
 var cnt = 0
 /*
- * Эта функция добавляет новую вершину декартова дерева в файл и вызывает goAdd,
- * которая добавит вершину в само дерево
+ * This function adds a new top of the Cartesian tree to the file and calls goAdd.
+ * which will add the vertex to the tree itself
  */
 fun addNode(path : String, new : node){
     startnodeindex = readFirst(path)
@@ -13,10 +13,10 @@ fun addNode(path : String, new : node){
     writeFrom(path, 0, digits(startnodeindex, 6))
 }
 /*
- * Функция удаления вершины из декартова дерева, которая делит дерево
- * на поддеревья вершин с меньшим хэшом, с равным(в этом поддереве будет только
- *  вершина, которую мы удаляем, и с большим хэшом. А потом сливает
- * поддеревья с меньшим и большим хэшом в одно декртово дерево
+ * The function of removing a vertex from a Cartesian tree that divides the tree
+ * to the subtrees of vertices with a smaller hash, with equal (in this subtree there will be only
+ * the vertex we are removing) and vertices with a large hash. And then it drains
+ * subtrees with smaller and larger hash into one dekart tree
  */
 fun removeNode(path : String, cur : node){
     startnodeindex = readFirst(path)
@@ -26,7 +26,7 @@ fun removeNode(path : String, cur : node){
     writeFrom(path, 0, digits(startnodeindex, 6))
 }
 /*
- * Функция, меняющая значения двух элементов класса местами
+ * A function that swaps the values of two class elements in places
  */
 fun swap(a : node, b : node){
     var c = node()
@@ -35,7 +35,7 @@ fun swap(a : node, b : node){
     b.set(c)
 }
 /*
- * Сравниваем хэши строк
+ * Compare string hashes
  */
 fun compareHash(path : String, itfirst : Int, HashSecond : String) : Int{
     var parts = 0
@@ -54,7 +54,7 @@ fun compareHash(path : String, itfirst : Int, HashSecond : String) : Int{
     return 0
 }
 /*
- * Функция поиска вершины в дереве с заданным ключом
+ * The function of finding a vertex in a tree with a given key
  */
 fun find(path : String, nodeindex : Int, toFind : node) : Boolean{
     cnt++
@@ -74,8 +74,8 @@ fun find(path : String, nodeindex : Int, toFind : node) : Boolean{
     }
 }
 /*
- * Функция, строящая декартово дерево по имеющимся
- * у нас парам ключ-значение
+ * Function that builds a Cartesian tree from the available ones
+ * we have key-value pairs
  */
 fun build(path : String){
     addWrite(path, digits(startnodeindex, 6) + "|")
@@ -84,8 +84,8 @@ fun build(path : String){
     }
 }
 /*
- * Функция, которая находит вершину в декартовом дереве с заданным ключом
- * и возвращает значение для этого ключа
+ * A function that finds a node in a Cartesian tree with a given key
+ * and returns the value for this key
  */
 fun getValue(path : String, nodeindex : Int, toFind : node) : String{
     var curNode = readFromPart(path, nodeindex)
@@ -102,7 +102,7 @@ fun getValue(path : String, nodeindex : Int, toFind : node) : String{
     }
 }
 /*
- * Функция, которая сливает два поддерева
+ * A function that merges two subtrees
  */
 fun merge(path : String, nodeindex1 : Int, nodeindex2 : Int) : Int{
     cnt++
@@ -126,9 +126,9 @@ fun merge(path : String, nodeindex1 : Int, nodeindex2 : Int) : Int{
     }
 }
 /*
- * Функция, разделяющая декартово дерево на два поддерева:
- * с большим хэшом и меньшим хэшом( при этом в одном из поддеревьев может
- * оказаться вершина с заданным хэшом, это зависит от флага)
+ * A function that splits a Cartesian tree into two subtrees:
+ * with a larger hash and a smaller hash (while in one of the subtrees can
+ * turn out to be a vertex with a given hash, it depends on the Flag)
  */
 fun split(path : String, nodeindex : Int, forSplitHash :String, Flag : Boolean) : Pair<Int, Int>{
     cnt++

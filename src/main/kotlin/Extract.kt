@@ -1,5 +1,5 @@
 /*
- * Функция ивлечения значения для ключа
+ * Key value retrieval function
  */
 fun Extract(arr : List<String>){
     if(arr.size != 3){
